@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #canvas {
+            border: 2px solid black;
+            margin: auto;
+            top: 5;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            position: absolute;
+        }
+
+        .yzat {
+
+            width: 50%;
+            border: none;
+            background-color: text-success;
+            padding: 5px 5px;
+            font-size: 10px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        h3 {
+            opacity: 1;
+        }
+        h3.waa {
+            opacity: 0;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+
+    <div class="container w-75 p-3 ">
+        <div>
+            <canvas id="canvas">
+
+
+
+            </canvas>
+        </div>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="row text-center">
+                <div class="col ">
+
+                    <input name='im' type="hidden" id="myField" value="" />
+                    <input class="yzat btn btn-info" data-toggle="modal" data-target="#myModal" type="submit"
+                        onclick="fun()" value="Process" />
+                </div>
+                <div class="col">
+                    <p class="text-center text-success">Handwrite any number between 0 and 9 </p>
+                </div>
+                <div class="col">
+                    <button class="yzat btn btn-info" id="btn-clean">Clean</button>
+
+                </div>
+            </div>
+            <script>
+                function fun() {
+                    document.getElementById('myField').value = save();
+                }
+
+                function save() {
+                    var Pic = document.getElementById('canvas').toDataURL("image/png");
+
+                    Pic = Pic.replace(/^data:image\/(png|jpg);base64,/, "");
+                    return Pic
+                }
+
+            </script>
+        </form>
+
+    <!------------------------------------------>
+    
+    <h3 id="aap" class="text-center display-1">
+        {% if messages %}
+            {% for message in messages %}
+            {{message}}
+            {% endfor %}
+        {% endif %}
+    </h3>
+    <script>
+        setTimeout(function () {
+            document.getElementById('aap').className = 'waa';
+        }, 3000);
+    </script>
+    <!------------------------------------------>
+
+
+
+    </div>
+
+    <!-------------------------------------------------------
+    <a href="#" class="button" id="btn-download">Download</a>
+    --------------------------------------------------------->
+
+
+    <script>
+        window.addEventListener('load', function dCanvas() {
+            const canvas = document.querySelector('#canvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.height = '400';
+            canvas.width = '600';
+
+            //ctx.fillRect(100, 100, 300, 300)
+
+            let painting = false;
+
+            function startPosition(e) {
+                painting = true;
+                draw(e)
+            }
+
+            function finishedPosition() {
+                painting = false;
+                ctx.beginPath();
+            }
+
+            function draw(e) {
+                if (!painting) return;
+                ctx.strokeStyle = 'Black';
+                ctx.lineWidth = 15;
+                ctx.lineCap = 'round';
+
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(e.offsetX, e.offsetY)
+
+                if (e.key.toLowerCase() == 'c') {
+                    draw.clear();
+                }
+            }
+
+
+            function clean(e) {
+                if (e.key.toLowerCase() == 'c') {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(document.getElementById('canvas'), 0, 0, 500, 500)
+                }
+            }
+
+            function btnclean(e) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(document.getElementById('canvas'), 0, 0, 500, 500);
+
+            }
+
+
+            ctx.drawImage(document.getElementById('canvas'), 0, 0, 500, 500)
+
+            //Event listener
+            canvas.addEventListener('mousedown', startPosition);
+            canvas.addEventListener('mouseup', finishedPosition);
+            canvas.addEventListener('mousemove', draw);
+            document.addEventListener('keypress', clean);
+
+
+            //Saving HTML5 canvas as image
+
+            var button = document.getElementById('btn-download');
+            button.addEventListener('click', function (e) {
+                var dataURL = canvas.toDataURL('image/png');
+                button.href = dataURL;
+            });
+
+            var clean_button = document.getElementById('btn-clean');
+            clean_button.addEventListener('click', btnclean)
+
+
+
+
+        });
+
+    </script>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
