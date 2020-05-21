@@ -41,7 +41,3 @@ class approvals(models.Model):
 		return '{}, {}'.format(self.lastname, self.firstname)
 
 
-
-class count(models.Model):
-    #name = models.TextField()
-    name = models.ImageField()

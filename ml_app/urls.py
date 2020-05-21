@@ -10,7 +10,5 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('status/', views_alternative.approvereject),
     path('creditai', views.cxcontact, name='cxform'),
-    path('', views_canvas.main, name='canvas'),
-    path('canvas/', views_canvas.main, name='canvas'),
 
 ]

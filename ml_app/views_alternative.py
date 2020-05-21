@@ -97,11 +97,11 @@ def approvereject(request):
         unit=unit.reshape(1, -1)
         
         # loading saved ML model
-        #mdl=tf.keras.models.load_model('C:/Users/Yzat/Downloads/ML_Django/Credit_Approval/ML_Coding/credit.h5')
+
         mdl=tf.keras.models.load_model('ml_app/credit.h5')
         
         # loading scalers to scale data
-        #scalers=joblib.load("C:/Users/Yzat/Downloads/ML_Django/Credit_Approval/ML_Coding/scalers.pkl")
+
         scalers=joblib.load("ml_app/scalers.pkl")
         
         X=scalers.transform(unit)

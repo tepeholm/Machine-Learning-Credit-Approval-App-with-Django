@@ -34,7 +34,7 @@ class ApprovalsView(viewsets.ModelViewSet):
 	serializer_class = approvalsSerializers
 
 def ohevalue(df):
-	ohe_col=joblib.load("ml_app/allcol.pkl")
+	ohe_col=joblib.load("ml_app/mlmodels/allcol.pkl")
 	cat_columns=['Gender','Married','Education','Self_Employed','Property_Area']
 	df_processed = pd.get_dummies(df, columns=cat_columns)
 	newdict={}
@@ -48,17 +48,15 @@ def ohevalue(df):
 
 def approvereject(unit):
 	try:
-		#mdl=tf.keras.models.load_model('C:/Users/Yzat/Downloads/ML_Django/Credit_Approval/ML_Coding/credit.h5')
-		#scalers=joblib.load("C:/Users/Yzat/Downloads/ML_Django/Credit_Approval/ML_Coding/scalers.pkl")
-  
-		mdl=tf.keras.models.load_model('ml_app/credit.h5')
-		scalers=joblib.load("ml_app/scalers.pkl")
+	  
+		mdl=tf.keras.models.load_model('ml_app/mlmodels/credit.h5')
+		scalers=joblib.load("ml_app/mlmodels/scalers.pkl")
 		X=scalers.transform(unit)
 		y_pred=mdl.predict(X)
 		y_pred=(y_pred>0.58)
 		newdf=pd.DataFrame(y_pred, columns=['Status'])
 		newdf=newdf.replace({True:'Approved', False:'Rejected'})
-		#K.clear_session()
+
 		clear_session()
 		return (newdf.values[0][0],X[0])
 	except ValueError as e:

@@ -16,5 +16,3 @@ class ApprovalForm(forms.Form):
 	Property_Area=forms.ChoiceField(choices=[('Rural', 'Rural'),('Semiurban', 'Semiurban'),('Urban', 'Urban')])
 
 
-class form_canvas(forms.Form):
-    im = forms.CharField()
