@@ -2,7 +2,7 @@ django-heroku
 gunicorn==20.0.4
 django==3.0.6
 djangorestframework==3.11.0
-tensorflow==1.14
+tensorflow==1.15.2
 Keras==2.2.5
 joblib==0.15.0
 pandas==1.0.3
