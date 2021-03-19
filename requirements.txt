@@ -12,7 +12,7 @@ xlrd==1.2.0
 matplotlib==3.2.1
 opencv-python-headless
 numpy==1.18.4
-Pillow==7.1.2
+Pillow==8.1.1
 
 
 
