@@ -1,6 +1,6 @@
 django-heroku
 gunicorn==20.0.4
-django==3.0.6
+django==3.0.12
 djangorestframework==3.11.0
 tensorflow==1.14
 Keras==2.2.5
